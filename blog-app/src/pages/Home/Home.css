@@ -1,0 +1,22 @@
+.home-container {
+    position: relative;
+  }
+  
+  .share-buttons {
+    display: flex;
+    position: absolute;
+    top: 10px; /* Adjust the top distance as needed */
+    left: 10px; /* Adjust the left distance as needed */
+    justify-content: end;
+    align-items: center;
+    
+  }
+  .buttons{
+    outline: none;
+    border: none;
+    padding: 0.3rem 1rem;
+    border-radius: 5px;
+    background-color: #0f52ba;
+    color: #fff;
+  }
+  
