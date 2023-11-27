@@ -5,8 +5,8 @@
   .share-buttons {
     display: flex;
     position: absolute;
-    top: 10px; /* Adjust the top distance as needed */
-    left: 10px; /* Adjust the left distance as needed */
+    top: 10px; 
+    left: 10px; 
     justify-content: end;
     align-items: center;
     
@@ -19,4 +19,40 @@
     background-color: #0f52ba;
     color: #fff;
   }
-  
+  .blogList-wrap{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap:3rem;
+}
+
+@media(max-width:768px){
+    .blogList-wrap{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap:3rem;
+    }
+
+}
+
+@media(max-width:600px){
+    .blogList-wrap{
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-gap:3rem;
+    }
+
+}
+
+.read-more-link {
+  color: #007bff; 
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.read-more-link:hover {
+  text-decoration: underline;
+}
+
+

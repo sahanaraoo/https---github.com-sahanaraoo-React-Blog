@@ -5,16 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 
-
-
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Wrap your entire application in the Root component
 root.render(
   <React.StrictMode>
-    
-    <App />
-    
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <App />
+    </React.Suspense>
   </React.StrictMode>
 );
 

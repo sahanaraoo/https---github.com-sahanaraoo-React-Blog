@@ -10,18 +10,17 @@ import Footer from './Footer';
 const App = () => {
   return (
     <div className='container'>
-        
-        <Router>
+    
+    <Router>
       <Routes>
-      <Route path='/' element={<Home />} />
-        <Route path='/blog/:id' element={<Blog />} />
-        <Route path='*' element={<Navigate to='/' />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/blog/:id" element={<Blog />} />
+        
       </Routes>
-      </Router>
-      <br />
-      <Header/>
-      
-    </div>
+    </Router>
+    <Header />
+  </div>
+  
   );
 };
 

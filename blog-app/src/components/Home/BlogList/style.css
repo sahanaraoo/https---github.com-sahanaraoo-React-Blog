@@ -21,3 +21,15 @@
     }
 
 }
+
+.read-more-link {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: blue; 
+  }
+  .truncated-description {
+    max-height: 10em; 
+    overflow: hidden;
+  }
+  

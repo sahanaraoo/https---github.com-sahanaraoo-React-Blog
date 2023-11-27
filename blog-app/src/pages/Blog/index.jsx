@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { blogList } from '../../config/data';
+import axios from 'axios';
 import Chip from '../../components/common/chip';
 import EmptyList from '../../components/common/EmptyList';
 import './styles.css';
@@ -11,11 +11,32 @@ const Blog = () => {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    let blog = blogList.find((blog) => blog.id === parseInt(id));
-    if (blog) {
-      setBlog(blog);
-    }
-  }, []);
+    const fetchBlogDetails = async () => {
+      try {
+        const response = await axios.get(
+          `https://cdn.contentful.com/spaces/lecsor65z6h5/entries/${id}?access_token=BfTZj7xc714fKGvPfg7qnA1ZhQh3up_qyWNjQn8Jj8M`
+        );
+
+        if (response.data.fields) {
+          const blogData = response.data.fields;
+          const coverUrl = blogData.cover?.fields?.file?.url || '';
+          
+          setBlog({
+            id: response.data.sys.id,
+            title: blogData.title,
+            subCategory: blogData.subCategory || [], 
+            createdAt: blogData.createdAt,
+            cover: blogData.cover?.fields?.file?.url || '',
+            description: blogData.description,
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching blog details from Contentful:', error);
+      }
+    };
+
+    fetchBlogDetails();
+  }, [id]);
 
   return (
     <>
@@ -28,11 +49,12 @@ const Blog = () => {
             <p className='blog-date'>Published {blog.createdAt}</p>
             <h1>{blog.title}</h1>
             <div className='blog-subCategory'>
-              {blog.subCategory.map((category, i) => (
-                <div key={i}>
-                  <Chip label={category} />
-                </div>
-              ))}
+              {Array.isArray(blog.subCategory) &&
+                blog.subCategory.map((category, i) => (
+                  <div key={i}>
+                    <Chip label={category} />
+                  </div>
+                ))}
             </div>
           </header>
           <img src={blog.cover} alt='cover' />
@@ -42,7 +64,7 @@ const Blog = () => {
         <EmptyList />
       )}
     </>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
