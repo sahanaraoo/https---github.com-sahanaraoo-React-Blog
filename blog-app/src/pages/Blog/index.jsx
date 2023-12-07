@@ -13,20 +13,33 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
+        
         const response = await axios.get(
           `https://cdn.contentful.com/spaces/lecsor65z6h5/entries/${id}?access_token=BfTZj7xc714fKGvPfg7qnA1ZhQh3up_qyWNjQn8Jj8M`
         );
 
+       
+        const assetsResponse = await axios.get(
+          `https://cdn.contentful.com/spaces/lecsor65z6h5/assets?access_token=BfTZj7xc714fKGvPfg7qnA1ZhQh3up_qyWNjQn8Jj8M`
+        );
+
+        console.log(response);
+
         if (response.data.fields) {
           const blogData = response.data.fields;
-          const coverUrl = blogData.cover?.fields?.file?.url || '';
-          
+
+          const coverAsset = assetsResponse.data.items.find(
+            (asset) => asset.sys.id === blogData.cover.sys.id
+          );
+
+          const coverUrl = coverAsset?.fields?.file?.url || '';
+
           setBlog({
             id: response.data.sys.id,
             title: blogData.title,
-            subCategory: blogData.subCategory || [], 
+            subCategory: blogData.subCategory || [],
             createdAt: blogData.createdAt,
-            cover: blogData.cover?.fields?.file?.url || '',
+            cover: coverUrl,
             description: blogData.description,
           });
         }
@@ -37,6 +50,8 @@ const Blog = () => {
 
     fetchBlogDetails();
   }, [id]);
+
+  
 
   return (
     <>

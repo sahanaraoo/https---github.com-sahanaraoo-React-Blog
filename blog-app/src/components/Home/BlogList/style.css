@@ -32,4 +32,12 @@
     max-height: 10em; 
     overflow: hidden;
   }
+
+  .blogList-img{
+    height: 15em;
+    width: 20em;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+  }
   

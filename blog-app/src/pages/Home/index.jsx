@@ -10,6 +10,7 @@ import EmptyList from '../../components/common/EmptyList';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+  const [Urls, setUrls] = useState([]);
   const [searchKey, setSearchKey] = useState('');
 
   const spaceId = 'lecsor65z6h5'; 
@@ -21,9 +22,9 @@ const Home = () => {
         `https://cdn.contentful.com/spaces/${spaceId}/entries?access_token=${accessToken}&content_type=first`
       );
   
-      
+    
       const fetchedBlogs = response.data.items
-        ? response.data.items.map((item) => ({
+        ? response.data.items.map((item, index) => ({
             id: item.sys.id,
             title: item.fields.title,
             category: item.fields.category,
@@ -32,11 +33,12 @@ const Home = () => {
             authorName: item.fields.authorName,
             authorAvatar: item.fields.authorAvatar,
             createdAt: item.fields.createdAt,
-            cover: item.fields.cover?.fields?.file?.url || '', // Check if 'cover' and 'file' exist
+            cover: response.data.includes.Asset[index].fields.file.url, // Check if 'cover' and 'file' exist
           }))
         : [];
   
       setBlogs(fetchedBlogs);
+
     } catch (error) {
       console.error('Error fetching data from Contentful:', error);
     }
